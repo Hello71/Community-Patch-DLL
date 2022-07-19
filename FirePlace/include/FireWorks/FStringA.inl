@@ -110,8 +110,7 @@ inline FStringA::FStringA( char ch, int iRepeat )
 	SetLength( iRepeat );
 	if ( iRepeat > 0 )
 	{
-		memset( m_pszString, 1, sizeof ( char ) * iRepeat );
-		_strnset( m_pszString, ch, iRepeat );
+		std::fill_n( m_pszString, iRepeat, ch );
 		m_pszString[ iRepeat ] = '\0';
 	}
 }
