@@ -137,8 +137,6 @@
 #include <tchar.h>
 #include <assert.h>
 #include <map>
-#define _SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS
-#include <hash_map>
 #include <limits>
 #include <unordered_set>
 
@@ -152,7 +150,6 @@ typedef wchar_t          wchar;
 #define M_PI       3.14159265358979323846
 #define fM_PI		3.141592654f		//!< Pi (float)
 
-#define STDEXT stdext
 #define MAX(a, b) std::max(a, b)
 #define MIN(a, b) std::min(a, b)
 

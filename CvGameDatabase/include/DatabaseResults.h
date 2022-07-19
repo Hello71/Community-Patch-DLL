@@ -2,7 +2,6 @@
 #pragma once 
 
 #include <list>
-#include <hash_map>
 #include <string>
 
 namespace Database{
@@ -122,7 +121,7 @@ namespace Database{
 		const char* m_szColumns;
 		bool m_bSingleQuery;
 
-		stdext::hash_map<std::string, int> m_hshColumnPositions;
+		std::unordered_map<std::string, int> m_hshColumnPositions;
 	};
 
 	class SingleResult : public Results
