@@ -46,7 +46,7 @@ class FVariableDebug;
 #define FVARTYPE FVariableDebug
 #endif	//	FINAL_RELEASE
 
-typedef STDEXT::hash_map< FString, FVARTYPE*, FStringHashTraits > FVariableHash;
+typedef std::unordered_map< FString, FVARTYPE*, FStringHashTraits > FVariableHash;
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // CLASS:	FVariableCallback

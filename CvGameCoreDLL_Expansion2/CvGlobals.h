@@ -171,7 +171,7 @@ public:
 		SAVE_VERSION_LATEST = 0,
 	};
 
-	typedef stdext::hash_map<std::string /* type string */, int /* info index */> InfosMap;
+	typedef std::unordered_map<std::string /* type string */, int /* info index */> InfosMap;
 	typedef std::map<uint /* FStringHashType */, int /* info index */> InfosHashMap;
 	typedef tr1::array<uint32, 4> GameDataHash;
 
