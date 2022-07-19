@@ -120,18 +120,18 @@ protected:
 
 
 
+extern "C" {
 #ifdef FXS_IS_DLL
 extern TempHeap* GetTempHeap();
 //extern void BindTempHeapProc();
 #else
-extern "C" {
 	__declspec(dllexport) TempHeap* GetTempHeap();
     extern TempHeap g_TempHeap;
 
 
 //extern void SetDLLTempHeap(TempHeap* pTempHeap);
-};
 #endif
+};
 
 
 //====================================================================================================

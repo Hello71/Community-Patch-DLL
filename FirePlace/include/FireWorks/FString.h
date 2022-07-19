@@ -564,14 +564,14 @@ private:
 };
 
 // Access to the common initializer data for an empty string
-#if !defined(FXS_IS_DLL)
 extern "C" 
 {
+#if !defined(FXS_IS_DLL)
 	__declspec(dllexport) extern FStringA::FStringAData* FStringA_GetStringInitData();
-}
 #else
 FStringA::FStringAData* FStringA_GetStringInitData();
 #endif
+}
 
 // Friendly helpers
 FStringA operator+( char ch, const FStringA& s2 );
@@ -1056,14 +1056,14 @@ private:
 };
 
 // Access to the common initializer data for an empty string
-#if !defined(FXS_IS_DLL)
 extern "C" 
 {
+#if !defined(FXS_IS_DLL)
 	__declspec(dllexport) extern FStringW::FStringWData* FStringW_GetStringInitData();
-}
 #else
 FStringW::FStringWData* FStringW_GetStringInitData();
 #endif
+}
 
 // Friendly helpers
 FStringW operator+( wchar ch, const FStringW& s2 );
