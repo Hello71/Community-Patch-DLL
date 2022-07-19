@@ -105,7 +105,7 @@ void InitializeArray(T*& pArray, const char* szTableName, T default_ = (T)0);
 	const char* GetErrorMessage() const;
 
 private:
-	typedef stdext::hash_map<std::string, Database::Results*> ResultsMap;
+	typedef std::unordered_map<std::string, Database::Results*> ResultsMap;
 	ResultsMap m_storedResults;
 };
 
