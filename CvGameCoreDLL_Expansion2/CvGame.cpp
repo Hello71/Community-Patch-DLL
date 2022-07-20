@@ -11188,8 +11188,7 @@ void CvGame::writeSaveGameDB(FDataStream& kStream) const
 	}
 	else
 	{
-		WIN32_FILE_ATTRIBUTE_DATA fileAttributes;
-		if (GetFileAttributesExW(savePath, GetFileExInfoStandard, &fileAttributes) != INVALID_FILE_ATTRIBUTES)
+		if (GetFileAttributesW(savePath) != INVALID_FILE_ATTRIBUTES)
 		{
 			ASSERT(false, "Saved game database exists, but could not open it!");
 		}
