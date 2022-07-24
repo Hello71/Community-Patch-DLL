@@ -1444,7 +1444,17 @@ public:
 	virtual const CvString DLLCALL emailAddress() = 0; 
 	virtual float DLLCALL endTurnTimerLength() = 0; 
 	virtual EraTypes DLLCALL era() = 0;
+
+	/* Aspyr broke ABI by adding a function somewhere between era and gameMode -.-
+	 * cvLuaPreGame::lGetEra(lua_State*) calls vtbl[27](void)=era
+	 * cvLuaPreGame::lGameStarted(lua_State*) calls vtbl[32](void)=gameStarted
+	 * CvModdingFrameworkAppSide::LoadCvGameCore calls vtbl[30](void) so can't be findPlayerByNickname
+	 */
+#ifndef _WIN32
+	virtual void DLLCALL Padding() { __builtin_trap(); }
+#endif
 	virtual PlayerTypes DLLCALL findPlayerByNickname(const char * const name) = 0;
+
 	virtual GameMode DLLCALL gameMode() = 0;
 	virtual const CvString DLLCALL  gameName() = 0;
 	virtual bool DLLCALL gameStarted() = 0;

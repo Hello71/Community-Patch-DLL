@@ -179,6 +179,10 @@ EraTypes CvDllPreGame::era()
 //------------------------------------------------------------------------------
 PlayerTypes CvDllPreGame::findPlayerByNickname(const char* const name)
 {
+/* see CvDllInterfaces.h */
+#ifndef _WIN32
+	__builtin_trap();
+#endif
 	return CvPreGame::findPlayerByNickname(name);
 }
 //------------------------------------------------------------------------------

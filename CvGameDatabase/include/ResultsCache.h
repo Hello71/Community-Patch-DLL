@@ -17,8 +17,13 @@ public:
 	CvGameDatabaseAPI void Clear();
 	CvGameDatabaseAPI void Clear(const std::string& strKey);
 
+#ifdef _WIN32
 	//! Retrieves the associated connection object.
 	CvGameDatabaseAPI Database::Connection& Connection();
+#else
+	//! Retrieves the associated connection object.
+	CvGameDatabaseAPI Database::Connection& ConnectionObject();
+#endif
 
 	//! Retrieves a cached result given an arbitrary string key
 	CvGameDatabaseAPI Results* Get(const std::string& strKey);

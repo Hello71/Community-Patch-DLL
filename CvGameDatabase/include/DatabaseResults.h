@@ -121,7 +121,9 @@ namespace Database{
 		const char* m_szColumns;
 		bool m_bSingleQuery;
 
-		std::unordered_map<std::string, int> m_hshColumnPositions;
+		// XXX: hack
+		// std::unordered_map<std::string, int> m_hshColumnPositions;
+		int m_hshColumnPositions_[7];
 	};
 
 	class SingleResult : public Results
