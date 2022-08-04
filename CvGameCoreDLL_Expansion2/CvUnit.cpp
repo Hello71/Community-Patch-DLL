@@ -9658,7 +9658,7 @@ int CvUnit::getExoticGoodsGoldAmount()
 
 		int iExtraGold = /*400*/ GD_INT_GET(EXOTIC_GOODS_GOLD_MAX) - /*100*/ GD_INT_GET(EXOTIC_GOODS_GOLD_MIN);
 		iValue = GD_INT_GET(EXOTIC_GOODS_GOLD_MIN) + (int)(iExtraGold * fDistanceFactor);
-		iValue = MIN(iValue, GD_INT_GET(EXOTIC_GOODS_GOLD_MAX));
+		iValue = std::min(iValue, GD_INT_GET(EXOTIC_GOODS_GOLD_MAX));
 	}
 	return iValue;
 }
@@ -9673,7 +9673,7 @@ int CvUnit::getExoticGoodsXPAmount()
 
 		int iExtraXP = /*30*/ GD_INT_GET(EXOTIC_GOODS_XP_MAX) - /*10*/ GD_INT_GET(EXOTIC_GOODS_XP_MIN);
 		iValue = GD_INT_GET(EXOTIC_GOODS_XP_MIN) + (int)(iExtraXP * fDistanceFactor);
-		iValue = MIN(iValue, GD_INT_GET(EXOTIC_GOODS_XP_MAX));
+		iValue = std::min(iValue, GD_INT_GET(EXOTIC_GOODS_XP_MAX));
 	}
 	return iValue;
 }
@@ -11630,7 +11630,7 @@ int CvUnit::getDiscoverAmount()
 		// scale with player traits/policies etc.
 		iScience = iScience * (100 + pPlayer->GetGreatScientistBeakerMod()) / 100;
 	}
-	return MAX(0, iScience);
+	return max(0, iScience);
 }
 
 //	--------------------------------------------------------------------------------
@@ -11825,7 +11825,7 @@ int CvUnit::getMaxHurryProduction(CvCity* pCity) const
 	if (MOD_GP_ERA_SCALING)
 	{
 		int EraModifiers[6] = { 100, 200, 250, 400, 475, 575 };
-		int iIndex = MAX(0, GET_PLAYER(getOwner()).GetCurrentEra() - 2);
+		int iIndex = max(0, GET_PLAYER(getOwner()).GetCurrentEra() - 2);
 		iProduction = iProduction * EraModifiers[iIndex] / 100;
 	}
 	// Add production from population (does not scale with era)
@@ -11848,7 +11848,7 @@ int CvUnit::getMaxHurryProduction(CvCity* pCity) const
 	// scale with player traits/policies etc.
 	iProduction = iProduction * (100 + GET_PLAYER(getOwner()).GetGreatEngineerHurryMod()) / 100;
 	
-	return MAX(0, iProduction);
+	return max(0, iProduction);
 }
 
 //	--------------------------------------------------------------------------------
@@ -11862,7 +11862,7 @@ int CvUnit::getHurryProduction(const CvPlot* pPlot) const
 	if(pCity == NULL)
 		return 0;
 
-	return MAX(0, getMaxHurryProduction(pCity));
+	return max(0, getMaxHurryProduction(pCity));
 }
 
 //	--------------------------------------------------------------------------------
@@ -11982,7 +11982,7 @@ int CvUnit::getTradeGold() const
 		if (MOD_GP_ERA_SCALING)
 		{
 			int EraModifiers[6] = { 100, 200, 250, 400, 475, 575 };
-			int iIndex = MAX(0, iCurrentEra - 2); // starts from renaissance
+			int iIndex = max(0, iCurrentEra - 2); // starts from renaissance
 			iGold = iGold * EraModifiers[iIndex] / 100;
 		}
 		else
@@ -12006,7 +12006,7 @@ int CvUnit::getTradeGold() const
 	// scale with extra unit promotion etc.
 	iGold = iGold * (100 + GetTradeMissionGoldModifier()) / 100;
 
-	return MAX(0, iGold);
+	return max(0, iGold);
 }
 
 //	--------------------------------------------------------------------------------
@@ -20956,7 +20956,7 @@ int CvUnit::setDamage(int iNewValue, PlayerTypes ePlayer, float fAdditionalTextD
 			if(!IsDead())
 			{
 				CvString text;
-				iNewValue = MIN(GetMaxHitPoints(),iNewValue);
+				iNewValue = std::min(GetMaxHitPoints(),iNewValue);
 				int iDiff = iOldValue - iNewValue;
 				if(iNewValue < iOldValue)
 				{

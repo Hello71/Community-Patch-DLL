@@ -13,6 +13,8 @@
 
 #include "CvSpanSerialization.h"
 
+#include "CvGame.h"
+
 #include <array>
 
 // Shared empty string

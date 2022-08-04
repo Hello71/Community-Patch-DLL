@@ -390,7 +390,7 @@ void CvAdvisorCounsel::BuildCounselList(PlayerTypes ePlayer)
 							continue;
 						}
 
-						int iCombatValue = MAX(pUnitEntry->GetCombat(), pUnitEntry->GetRangedCombat());
+						int iCombatValue = std::max(pUnitEntry->GetCombat(), pUnitEntry->GetRangedCombat());
 						if(iCombatValue <= iMaxCombatValue)
 						{
 							continue;

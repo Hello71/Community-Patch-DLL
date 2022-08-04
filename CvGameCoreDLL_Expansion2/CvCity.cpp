@@ -14494,7 +14494,7 @@ void CvCity::processBuilding(BuildingTypes eBuilding, int iChange, bool bFirst, 
 										}
 									}
 
-									int iResourceQuantityPerPlot = MAX(it->first, 1);
+									int iResourceQuantityPerPlot = std::max(it->first, 1);
 									pLoopPlot->setResourceType(NO_RESOURCE, 0, false);
 									pLoopPlot->setResourceType(eResource, iResourceQuantityPerPlot, false);
 									iNumResourcePlotsGiven++;
@@ -27600,7 +27600,7 @@ void CvCity::setDamage(int iValue, bool noMessage)
 		{
 			char text[256];
 			text[0] = '\0';
-			int iNewValue = MIN(GetMaxHitPoints(), iValue);
+			int iNewValue = std::min(GetMaxHitPoints(), iValue);
 			int iDiff = iOldValue - iNewValue;
 			if (iNewValue < iOldValue)
 			{

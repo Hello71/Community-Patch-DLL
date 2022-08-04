@@ -3791,7 +3791,7 @@ int CvLeague::GetNumResolutionsEverEnacted() const
 
 int CvLeague::GetNumProposersPerSession() const
 {
-	return MIN(/*2 in CP, 3 in CSD*/ GD_INT_GET(LEAGUE_PROPOSERS_PER_SESSION), GetNumMembers());
+	return std::min(/*2 in CP, 3 in CSD*/ GD_INT_GET(LEAGUE_PROPOSERS_PER_SESSION), GetNumMembers());
 }
 
 void CvLeague::AddMember(PlayerTypes ePlayer)
@@ -5116,7 +5116,7 @@ float CvLeague::GetContributionTierThreshold(ContributionTier eTier, LeagueProje
 					iBestContribution = iContribution;
 				}
 			}
-			fThreshold = MAX((float)iBestContribution, GetProjectCostPerPlayer(eLeagueProject) * /*1.0f*/ GD_FLOAT_GET(LEAGUE_PROJECT_REWARD_TIER_2_THRESHOLD));
+			fThreshold = std::max((float)iBestContribution, GetProjectCostPerPlayer(eLeagueProject) * /*1.0f*/ GD_FLOAT_GET(LEAGUE_PROJECT_REWARD_TIER_2_THRESHOLD));
 			break;
 		}
 	default:
@@ -6567,7 +6567,7 @@ CvString CvLeague::GetProjectProgressDetails(LeagueProjectTypes eProject, Player
 	if (eObserver != NO_PLAYER && IsProjectActive(eProject) && GetProjectCost(eProject)>0)
 	{
 		int iPercentCompleted = (int) (((float)GetProjectProgress(eProject) / (float)GetProjectCost(eProject)) * 100);
-		iPercentCompleted = MIN(100, iPercentCompleted);
+		iPercentCompleted = std::min(100, iPercentCompleted);
 		Localization::String sTemp = Localization::Lookup("TXT_KEY_LEAGUE_PROJECT_POPUP_PROGRESS_COST");
 		sTemp << iPercentCompleted;
 		sTemp << GetMemberContribution(eObserver, eProject, true) / 100;
@@ -8837,7 +8837,7 @@ void CvLeague::NotifyProjectProgress(LeagueProjectTypes eProject)
 					if (pNotifications)
 					{
 						int iPercentCompleted = (int) ((float)GetProjectProgress(eProject) / max(1,GetProjectCost(eProject)) * 100);
-						iPercentCompleted = MIN(100, iPercentCompleted);
+						iPercentCompleted = min(100, iPercentCompleted);
 
 						Localization::String sSummary = Localization::Lookup("TXT_KEY_NOTIFICATION_LEAGUE_PROJECT_PROGRESS");
 						sSummary << pInfo->GetDescriptionKey();
@@ -8927,7 +8927,7 @@ void CvLeague::CheckProjectsProgress()
 				else
 				{
 					int iPercentCompleted = (int) (((float)iTotal / max(1,iNeeded)) * 100);
-					iPercentCompleted = MIN(100, iPercentCompleted);
+					iPercentCompleted = min(100, iPercentCompleted);
 
 					if (!it->bProgressWarningSent && iPercentCompleted >= /*33 in CP, 25 in CSD*/ GD_INT_GET(LEAGUE_PROJECT_PROGRESS_PERCENT_WARNING))
 					{
@@ -11932,7 +11932,7 @@ void CvLeagueAI::FindBestVoteChoices(CvEnactProposal* pProposal, VoteConsiderati
 		VoteConsideration consideration(/*bEnact*/ true, pProposal->GetID(), vChoices[i], 0);
 		int iScore = ScoreVoteChoice(pProposal, vChoices[i], /*bConsiderGlobal*/ true);
 
-		iScore = MAX(iScore, 0); // No negative weights
+		iScore = std::max(iScore, 0); // No negative weights
 		vScoredChoices.push_back(consideration, iScore);
 	}
 
@@ -11979,7 +11979,7 @@ void CvLeagueAI::FindBestVoteChoices(CvRepealProposal* pProposal, VoteConsiderat
 		VoteConsideration consideration(/*bEnact*/ false, pProposal->GetID(), vChoices[i], 0);
 		int iScore = ScoreVoteChoice(pProposal, vChoices[i],/*bConsiderGlobal*/ true);
 
-		iScore = MAX(iScore, 0); // No negative weights
+		iScore = std::max(iScore, 0); // No negative weights
 		vScoredChoices.push_back(consideration, iScore);
 	}
 
