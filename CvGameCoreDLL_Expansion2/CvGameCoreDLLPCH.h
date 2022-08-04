@@ -140,18 +140,7 @@
 #include <limits>
 #include <unordered_set>
 
-#define DllExport   __declspec( dllexport )
-
-typedef unsigned char    byte;
-typedef unsigned int     uint;
-typedef wchar_t          wchar;
-
-#define LIMIT_RANGE(low, value, high) value = ((value) < (low) ? (low) : ((value) > (high) ? (high) : (value)));
-#define M_PI       3.14159265358979323846
-#define fM_PI		3.141592654f		//!< Pi (float)
-
-#define MAX(a, b) std::max(a, b)
-#define MIN(a, b) std::min(a, b)
+typedef unsigned int uint;
 
 #if !defined(FINAL_RELEASE) || defined(VPDEBUG)
 #define AI_PERF_LOGGING
@@ -250,12 +239,10 @@ typedef wchar_t          wchar;
 
 using namespace fastdelegate;
 
-#ifdef FINAL_RELEASE
+#if defined(FINAL_RELEASE) && !defined(MOD_BALANCE_CORE)
 // Undefine OutputDebugString in final release builds
-#if !defined(MOD_BALANCE_CORE)
 #undef OutputDebugString
 #define OutputDebugString(x)
 #endif
-#endif //FINAL_RELEASE
 
 #endif	// CVGAMECOREDLLPCH_H
