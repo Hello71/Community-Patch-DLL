@@ -1737,7 +1737,7 @@ int StepDestValid(int iToX, int iToY, const SPathFinderUserData&, const CvAStar*
 		if (!bAllow && pFromPlot->isCity())
 		{
 			std::vector<int> cityLandmasses = pFromPlot->getAllAdjacentLandmasses();
-			std::vector<int> shared(MAX(vLandmasses.size(), cityLandmasses.size()));
+			std::vector<int> shared(std::max(vLandmasses.size(), cityLandmasses.size()));
 			std::vector<int>::iterator result = std::set_intersection(vLandmasses.begin(), vLandmasses.end(), cityLandmasses.begin(), cityLandmasses.end(), shared.begin());
 			bAllow = (result != shared.begin());
 		}

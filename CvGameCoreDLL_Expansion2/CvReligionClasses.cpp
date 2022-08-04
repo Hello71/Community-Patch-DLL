@@ -3022,7 +3022,7 @@ int CvGameReligions::GetBeliefYieldForKill(YieldTypes eYield, int iX, int iY, Pl
 				const CvReligion* pReligion = GetReligion(eReligion, eWinningPlayer);
 				if (pReligion == NULL || (pReligion != NULL && !pReligion->m_Beliefs.IsPantheonBeliefInReligion(ePantheonBelief, eReligion, eWinningPlayer))) // check that the our religion does not have our belief, to prevent double counting
 				{
-					iRtnValue += MAX(0, pPantheon->m_Beliefs.GetFaithFromKills(iDistance, eWinningPlayer, pLoopCity));
+					iRtnValue += std::max(0, pPantheon->m_Beliefs.GetFaithFromKills(iDistance, eWinningPlayer, pLoopCity));
 				}
 			}
 		}
@@ -8782,10 +8782,10 @@ int CvReligionAI::ScoreBeliefAtCity(CvBeliefEntry* pEntry, CvCity* pCity) const
 		iRtnValue /= 2 + (m_pPlayer->GetDiplomacyAI()->IsGoingForWorldConquest() ? 1 : -1);
 	}
 
-	iRtnValue += (pEntry->GetBorderGrowthRateIncreaseGlobal() / 7) * MAX(pEntry->GetBorderGrowthRateIncreaseGlobal() / 7, iFlavorDefense - iFlavorOffense);
-	iRtnValue += (-pEntry->GetPlotCultureCostModifier() / 7) * MAX(-pEntry->GetPlotCultureCostModifier() / 7, iFlavorDefense - iFlavorOffense);
+	iRtnValue += (pEntry->GetBorderGrowthRateIncreaseGlobal() / 7) * std::max(pEntry->GetBorderGrowthRateIncreaseGlobal() / 7, iFlavorDefense - iFlavorOffense);
+	iRtnValue += (-pEntry->GetPlotCultureCostModifier() / 7) * std::max(-pEntry->GetPlotCultureCostModifier() / 7, iFlavorDefense - iFlavorOffense);
 
-	iRtnValue += (pEntry->GetCityRangeStrikeModifier() / 3) * MAX(pEntry->GetCityRangeStrikeModifier() / 3, iFlavorCityDefense - iFlavorOffense);
+	iRtnValue += (pEntry->GetCityRangeStrikeModifier() / 3) * std::max(pEntry->GetCityRangeStrikeModifier() / 3, iFlavorCityDefense - iFlavorOffense);
 
 	iRtnValue += (pEntry->GetFriendlyHealChange() * iFlavorDefense) / max(1, iFlavorOffense);
 
@@ -11482,7 +11482,7 @@ UnitTypes CvReligionAI::GetDesiredFaithGreatPerson() const
 					}
 					else
 					{
-						iScore += MAX(100, int((100.0/3.0) * (m_pPlayer->GetDiplomacyAI()->GetWonderCompetitiveness() + 0.3)));
+						iScore += std::max(100, int((100.0/3.0) * (m_pPlayer->GetDiplomacyAI()->GetWonderCompetitiveness() + 0.3)));
 					}
 				}
 				else if (eUnitClass == GC.getInfoTypeForString("UNITCLASS_GREAT_GENERAL"))
