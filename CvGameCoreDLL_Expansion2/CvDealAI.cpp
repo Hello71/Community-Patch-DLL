@@ -3381,7 +3381,7 @@ int CvDealAI::GetVoteCommitmentValue(bool bFromMe, PlayerTypes eOtherPlayer, int
 		}
 	}
 
-	iValue = MAX(iValue, 0);
+	iValue = std::max(iValue, 0);
 
 	return iValue;
 }
