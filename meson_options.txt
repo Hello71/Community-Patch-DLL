@@ -1,0 +1,2 @@
+option('vpdebug', type: 'boolean', value: false, description: 'enable extra debugging assertions and logs')
+option('libcxx_inc', type: 'string', description: 'libc++ include directory (default: auto)')

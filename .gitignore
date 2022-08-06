@@ -40,6 +40,7 @@
 !*.sln
 !*.txt
 !*.vcxproj
+!meson.build
 
 !docs/images/*
 

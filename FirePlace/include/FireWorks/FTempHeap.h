@@ -95,7 +95,11 @@ public:
         //-----------------------------------------------------------
         volatile LONG& Acquire() { return m_uiLock; }
     
+#ifdef _MSC_VER
         __declspec( align(16)) volatile LONG m_uiLock;
+#else
+        alignas(16) volatile LONG m_uiLock;
+#endif
     };
 
     uint GetCapacity() const { return m_uiCapacity; };

@@ -410,12 +410,19 @@ private: \
 	ContainerType& m_container; \
 public:
 
+// gcc complains about typedef ContainerType ContainerType; which is... maybe right?
+#ifdef __GNUC__
+#define SYNC_ARCHIVE_CONTAINER_TYPE __typeof__(m_container)
+#else
+#define SYNC_ARCHIVE_CONTAINER_TYPE ContainerType
+#endif
+
 // Automagically creates a traits entry for a CvSyncVar
 #define SYNC_ARCHIVE_VAR(memberType, memberName) \
 	struct memberName##_Traits { \
 		enum { INDEX = SYNC_ARCHIVE_VAR_NEXT_INDEX }; \
 		typedef memberType ValueType; \
-		typedef ContainerType ContainerType; \
+		typedef SYNC_ARCHIVE_CONTAINER_TYPE ContainerType; \
 		typedef CvSyncArchive<ContainerType>::SyncVars SyncVarsType; \
 		static inline const ValueType& Get(const ContainerType& container) { return container.memberName; } \
 		static inline ValueType& Get(ContainerType& container) { return container.memberName; } \

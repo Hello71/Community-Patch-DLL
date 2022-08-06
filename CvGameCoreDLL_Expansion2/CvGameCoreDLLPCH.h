@@ -34,20 +34,22 @@
 #define CLOSED_ENUM __attribute__((enum_extensibility(closed)))
 #define OPEN_ENUM __attribute__((enum_extensibility(open)))
 #define FLAG_ENUM __attribute__((flag_enum))
-#define BUILTIN_UNREACHABLE() __builtin_unreachable()
-#define BUILTIN_TRAP() __builtin_trap()
-#define BUILTIN_ASSUME(expr) __builtin_assume(expr)
-#elif defined(_MSC_VER)
-#include <intrin.h>
+#else
 #define CLOSED_ENUM
 #define OPEN_ENUM
 #define FLAG_ENUM
+#endif
+
+#if defined(_MSC_VER)
+#include <intrin.h>
 #define BUILTIN_UNREACHABLE() __assume(0)
 #define BUILTIN_TRAP() do { __ud2(); __assume(0); } while(0)
 #define BUILTIN_ASSUME(expr) __assume(expr)
 #else
-#error Unrecognized compiler
-#endif // defined(__clang__)
+#define BUILTIN_UNREACHABLE() __builtin_unreachable()
+#define BUILTIN_TRAP() __builtin_trap()
+#define BUILTIN_ASSUME(expr) __builtin_assume(expr)
+#endif
 
 #if __cplusplus >= 201103L
 #define ENUM_META_VALUE [[maybe_unused]]
@@ -130,8 +132,9 @@
 // Similar to UNUSED_VARIABLE, but implies that the variable IS used in debug builds.
 #define DEBUG_VARIABLE(x) UNUSED_VARIABLE(x)
 
+#ifdef _WIN32
 #include "CvGameCoreDLLUtil_Win32Headers.h"
-#include <MMSystem.h>
+#endif
 
 #include <algorithm>
 #include <vector>
