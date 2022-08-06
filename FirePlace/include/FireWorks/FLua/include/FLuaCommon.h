@@ -16,7 +16,9 @@
 
 #include "lua.hpp"
 
+#ifdef _WIN32
 #include <tchar.h>
+#endif
 #include <stdio.h>
 #include <assert.h>
 

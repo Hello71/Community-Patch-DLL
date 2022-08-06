@@ -25,6 +25,8 @@
 #ifndef CvWorldBuilderMapElementAllocator_h
 #define CvWorldBuilderMapElementAllocator_h
 
+#include "FTempHeap.h"
+
 template<class T, uint TInitialSize>
 class CvWorldBuilderMapElementAllocator
 {

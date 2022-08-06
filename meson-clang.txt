@@ -1,0 +1,11 @@
+[binaries]
+c = ['clang', '-m32']
+cpp = ['clang++', '-m32']
+cpp_ld = 'lld'
+strip = 'strip'
+
+[host_machine]
+system = 'linux'
+cpu_family = 'x86'
+cpu = 'x86'
+endian = 'little'

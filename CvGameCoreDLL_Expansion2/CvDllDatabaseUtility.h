@@ -14,6 +14,7 @@
 
 #include "CvInfos.h"
 #include "CvGlobals.h"
+#include "cvStopWatch.h"
 #include "ICvDLLDatabaseUtility.h"
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
