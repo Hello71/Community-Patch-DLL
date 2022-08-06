@@ -1,0 +1,85 @@
+name: Build
+
+on:
+  push:
+    branches: [ "linux" ]
+  pull_request:
+    branches: [ "linux" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    strategy:
+      matrix:
+        buildtype: [debug, release]
+        compiler: [gcc, clang]
+        include:
+          - buildtype: debug
+            meson_flags: -Dvpdebug=true
+
+          - buildtype: release
+            meson_flags: -Dunity=on
+            cpp_args_1: -O3
+
+          - compiler: gcc
+            meson_env: CXX="g++ -m32"
+            cpp_args_2: -Wno-error=conversion-null
+
+          - compiler: clang
+            packages: lld
+            meson_env: CXX="clang++ -m32" CXX_LD=lld
+            cpp_args_2: -Wno-error=comment -Wno-error=null-conversion
+
+          - buildtype: release
+            compiler: gcc
+            cpp_args_3: -flto=auto
+
+          - buildtype: release
+            compiler: clang
+            cpp_args_3: -flto=thin
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install packages
+      run: |
+        sudo dpkg --add-architecture i386
+        sudo apt-get update
+        sudo apt-get install -y --no-install-recommends g++-multilib meson ${{matrix.packages}}
+
+    - name: Configure Meson
+      run: >
+        ${{matrix.meson_env}} meson setup
+        -Dbuildtype=${{matrix.buildtype}}
+        -Dcpp_args="-g3 ${{matrix.cpp_args_1}} ${{matrix.cpp_args_2}} ${{matrix.cpp_args_3}}"
+        -Dcpp_link_args="-g3 ${{matrix.cpp_args_1}} ${{matrix.cpp_args_2}} ${{matrix.cpp_args_3}}"
+        -Dwerror=true
+        ${{matrix.meson_flags}}
+        build || {
+          echo "::group::meson-log.txt";
+          cat build/meson-logs/meson-log.txt;
+          echo "::endgroup::";
+          exit 1;
+        }
+
+    - name: Build
+      run: meson compile -C build -v
+
+    - name: Package
+      run: ninja -C build -v package
+
+    - name: Upload package
+      uses: actions/upload-artifact@v3
+      with:
+        name: Vox Populi Linux ${{matrix.compiler}} ${{matrix.buildtype}} (2.5).tar.xz
+        path: build/Vox Populi Linux (2.5).tar.xz
+
+    - name: Compress unstripped so
+      run: xz -T0 --x86 --lzma2=preset=9 -c build/CvGameCoreDLL_Expansion2/libCvGameCoreDLL_Expansion2.so > libCvGameCoreDLL_Expansion2.so.xz
+
+    - name: Upload unstripped so
+      uses: actions/upload-artifact@v3
+      with:
+        name: unstripped ${{matrix.compiler}} ${{matrix.buildtype}} libCvGameCoreDLL_Expansion2.so.xz
+        path: libCvGameCoreDLL_Expansion2.so.xz
