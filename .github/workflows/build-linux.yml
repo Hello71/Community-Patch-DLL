@@ -1,0 +1,62 @@
+name: Build
+
+on:
+  push:
+    branches: [ "linux" ]
+  pull_request:
+    branches: [ "linux" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        buildtype: [debug, release]
+        compiler: [gcc, clang]
+        include:
+          - buildtype: debug
+            debug: true
+            meson_args: -Dvpdebug=true -Doptimization=g
+
+          - buildtype: release
+            debug: false
+            meson_args: -Ddebug=false -Dunity=on -Doptimization=3 -Db_lto=true
+
+          - compiler: clang
+            packages: lld
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install packages
+      run: |
+        sudo dpkg --add-architecture i386
+        sudo apt-get update
+        sudo apt-get install -y --no-install-recommends g++-multilib meson libc++-dev:i386 ${{matrix.packages}}
+
+    - name: Configure Meson
+      run: >
+        meson setup
+        --cross-file meson-${{matrix.compiler}}.txt
+        -Dwerror=true
+        ${{matrix.meson_args}}
+        build || {
+          echo "::group::meson-log.txt";
+          cat build/meson-logs/meson-log.txt;
+          echo "::endgroup::";
+          exit 1;
+        }
+
+    - name: Build
+      run: meson compile -C build -v
+
+    - name: Package
+      run: meson compile -C build -v package:custom
+
+    - name: Upload package
+      uses: actions/upload-artifact@v4
+      with:
+        name: Vox Populi Linux ${{matrix.compiler}} ${{matrix.buildtype}}.tar.xz
+        path: build/Vox Populi Linux.tar.xz

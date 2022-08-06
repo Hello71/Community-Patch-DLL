@@ -12,7 +12,7 @@
 #undef		FASSERT_ENABLE
 #endif
 
-#if			defined(NDEBUG) && !defined(_NDS)	// _assert() is in ALL run-time-libs, but not prototyped in RELEASE
+#if			defined(NDEBUG) && defined(_WIN32)	// _assert() is in ALL run-time-libs, but not prototyped in RELEASE
 extern "C" _CRTIMP void __cdecl _assert(const char *, const char *, unsigned);
 #endif	//	NDEBUG
 

@@ -194,9 +194,8 @@ typedef unsigned short port_t;
 
 // These classes allow an STL object to compare object values instead of
 // comparing the value of the objects' pointers.
-#include <functional>
 template<class _Ty>
-struct ptr_less : std::binary_function<_Ty, _Ty, bool>
+struct ptr_less
 {
 	bool operator()(const _Ty& _X, const _Ty& _Y) const
 	{
@@ -224,12 +223,6 @@ struct ptr_less : std::binary_function<_Ty, _Ty, bool>
 //---------------------------------------------------------------------------------------
 // Or just use CodeWright where it's built into the IDE >:P
 //---------------------------------------------------------------------------------------
-
-//
-//	NANs:  Quiet or Signaling NaNs can be either sign.
-//
-#define  QNAN	0x7FC00000	// mantissa can't be all zero
-#define  SNAN	0x7F800001
 
 
 #define  BIT(n)		(1<<(n))

@@ -456,7 +456,7 @@ public:
 			uiPos = m_uiFirstEmpty;
 			T* pTemp = &m_pData[uiPos];
 			m_uiFirstEmpty = pTemp->ALLOC_GetNext();
-			new( (void*)pTemp )T( x );
+			new( (void*)pTemp )T();
 			pTemp->ALLOC_SetDeleted(false);
 		}
 		m_uiMaxActiveIndex++;
