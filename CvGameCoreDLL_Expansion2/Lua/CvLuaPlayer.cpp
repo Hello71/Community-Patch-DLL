@@ -35,11 +35,6 @@
 // include this last to turn warnings into errors for code analysis
 #include "LintFree.h"
 
-//Utility macro for registering methods
-#define Method(Name)			\
-	lua_pushcclosure(L, l##Name, 0);	\
-	lua_setfield(L, t, #Name);
-
 //------------------------------------------------------------------------------
 void CvLuaPlayer::Register(lua_State* L)
 {
@@ -48,6 +43,11 @@ void CvLuaPlayer::Register(lua_State* L)
 //------------------------------------------------------------------------------
 void CvLuaPlayer::PushMethods(lua_State* L, int t)
 {
+//Utility macro for registering methods
+#define Method(Name)			\
+	lua_pushcclosure(L, l##Name, 0);	\
+	lua_setfield(L, t, #Name);
+
 	Method(InitCity);
 	Method(AcquireCity);
 	Method(CanLiberatePlayer);
@@ -1495,6 +1495,8 @@ void CvLuaPlayer::PushMethods(lua_State* L, int t)
 
 	Method(IsInstantYieldNotificationDisabled);
 	Method(SetInstantYieldNotificationDisabled);
+
+#undef Method
 }
 //------------------------------------------------------------------------------
 void CvLuaPlayer::HandleMissingInstance(lua_State* L)
