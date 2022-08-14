@@ -25,8 +25,6 @@
 
 #pragma warning(disable:4800 ) //forcing value to bool 'true' or 'false'
 
-#define Method(func) RegisterMethod(L, l##func, #func);
-
 //------------------------------------------------------------------------------
 const char* CvLuaMap::GetInstanceName()
 {
@@ -40,6 +38,8 @@ CvMap* CvLuaMap::GetInstance(lua_State* /*L*/, int /*idx*/)
 //------------------------------------------------------------------------------
 void CvLuaMap::RegisterMembers(lua_State* L)
 {
+#define Method(func) RegisterMethod(L, l##func, #func);
+
 	Method(Areas);
 	Method(FindBiggestArea);
 	Method(FindBiggestLandmassID);
@@ -78,6 +78,8 @@ void CvLuaMap::RegisterMembers(lua_State* L)
 	Method(ChangeAIMapHint);
 	Method(GetAIMapHint);
 	Method(GetNumTilesOfLandmass);
+
+#undef Method
 }
 //------------------------------------------------------------------------------
 int CvLuaMap::lAreas(lua_State* L)
