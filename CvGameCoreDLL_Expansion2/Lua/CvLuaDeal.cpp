@@ -15,11 +15,6 @@
 
 #pragma warning(disable:4800 ) //forcing value to bool 'true' or 'false'
 
-	//Utility macro for registering methods
-#define Method(Name)			\
-	lua_pushcclosure(L, l##Name, 0);	\
-	lua_setfield(L, t, #Name);
-
 
 using namespace CvLuaArgs;
 TradedItemList::iterator CvLuaDeal::m_iterator;
@@ -27,6 +22,11 @@ TradedItemList::iterator CvLuaDeal::m_iterator;
 //------------------------------------------------------------------------------
 void CvLuaDeal::PushMethods(lua_State* L, int t)
 {
+	//Utility macro for registering methods
+#define Method(Name)			\
+	lua_pushcclosure(L, l##Name, 0);	\
+	lua_setfield(L, t, #Name);
+
 	Method(ClearItems);
 	Method(GetNumItems);
 
@@ -101,6 +101,8 @@ void CvLuaDeal::PushMethods(lua_State* L, int t)
 	Method(RemoveUnitTrade);
 	Method(RemoveThirdPartyEmbargo);
 	Method(ChangeThirdPartyEmbargoDuration);
+
+#undef Method
 }
 
 //------------------------------------------------------------------------------

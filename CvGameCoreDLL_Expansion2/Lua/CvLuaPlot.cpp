@@ -24,17 +24,17 @@
 
 #pragma warning(disable:4800 ) //forcing value to bool 'true' or 'false'
 
-//Utility macro for registering methods
-#define Method(Name)			\
-	lua_pushcclosure(L, l##Name, 0);	\
-	lua_setfield(L, t, #Name);
-
 //safety measure against illegal pointers passed from lua
 #define CHECK_PLOT_VALID(p) if (!p || !GC.getMap().isPlot(p->getX(), p->getY()) || (p < GC.getMap().plotByIndexUnchecked(0)) || (p > GC.getMap().plotByIndexUnchecked(GC.getMap().numPlots() - 1))) return 0;
 
 //------------------------------------------------------------------------------
 void CvLuaPlot::PushMethods(lua_State* L, int t)
 {
+//Utility macro for registering methods
+#define Method(Name)			\
+	lua_pushcclosure(L, l##Name, 0);	\
+	lua_setfield(L, t, #Name);
+
 	Method(CanHaveFeature);
 	Method(GetFeatureType);
 	Method(GetTerrainType);
@@ -371,6 +371,8 @@ void CvLuaPlot::PushMethods(lua_State* L, int t)
 	Method(IsWithinDistanceOfTerrain);
 	Method(GetEffectiveFlankingBonus);
 	Method(GetEffectiveFlankingBonusAtRange);
+
+#undef Method
 }
 //------------------------------------------------------------------------------
 void CvLuaPlot::HandleMissingInstance(lua_State* L)
