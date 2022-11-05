@@ -11220,7 +11220,7 @@ vector<STacticalAssignment> TacticalAIHelpers::FindBestUnitAssignments(
 				iUsedPositions << " processed, " <<
 				iStartingUnits << " starting units, " <<
 				current->getAvailableUnits().size() << " remaining units";
-				CUSTOMLOG(ss.str().c_str());
+				CUSTOMLOG("%s", ss.str().c_str());
 
 			//too risky ...
 			/*
