@@ -874,60 +874,49 @@ enum BattleTypeTypes
 #define BATTLE_JOINED(pCombatant, iRole) __noop
 #define BATTLE_FINISHED()                __noop
 #endif
+
+template<typename T>
+void logAndODS(const char *filename, T sMsg) {
+	if (filename) LOGFILEMGR.GetLog(filename, FILogFile::kDontTimeStamp)->Msg(sMsg);
+	sMsg += '\n'; OutputDebugString(sMsg);
+}
+
+#if !defined(_MSC_VER) && !defined(__GNUC__)
+#error unsupported compiler
+#endif
+
 // Custom mod logger
-#if defined(CUSTOMLOGDEBUG)
-#if defined(CUSTOMLOGFILEINFO) && defined(CUSTOMLOGFUNCINFO)
-#define CUSTOMLOG(sFmt, ...) {																					\
-	CvString sMsg; CvString::format(sMsg, sFmt, __VA_ARGS__);													\
-	CvString sLine; CvString::format(sLine, "%s[%i]: %s - %s", __FILE__, __LINE__, __FUNCTION__, sMsg.c_str());	\
-	LOGFILEMGR.GetLog(CUSTOMLOGDEBUG, FILogFile::kDontTimeStamp)->Msg(sLine.c_str());							\
-	sLine += '\n'; OutputDebugString(sLine.c_str());																			\
-}
+#if    defined(CUSTOMLOGFILEINFO) &&  defined(CUSTOMLOGFUNCINFO)
+#define CUSTOMLOGINFOFMT(sFmt) "%s[%i]: %s - " sFmt, __FILE__, __LINE__, __FUNCTION__
+#elif  defined(CUSTOMLOGFILEINFO) && !defined(CUSTOMLOGFUNCINFO)
+#define CUSTOMLOGINFOFMT(sFmt) "%s[%i] - " sFmt, __FILE__, __LINE__
+#elif !defined(CUSTOMLOGFILEINFO) &&  defined(CUSTOMLOGFUNCINFO)
+#define CUSTOMLOGINFOFMT(sFmt) "%s - " sFmt, __FUNCTION__
+#else
+#define CUSTOMLOGINFOFMT(sFmt) sFmt
 #endif
-#if defined(CUSTOMLOGFILEINFO) && !defined(CUSTOMLOGFUNCINFO)
-#define CUSTOMLOG(sFmt, ...) {																					\
-	CvString sMsg; CvString::format(sMsg, sFmt, __VA_ARGS__);													\
-	CvString sLine; CvString::format(sLine, "%s[%i] - %s", __FILE__, __LINE__, sMsg.c_str());					\
-	LOGFILEMGR.GetLog(CUSTOMLOGDEBUG, FILogFile::kDontTimeStamp)->Msg(sLine.c_str());							\
-	sLine += '\n'; OutputDebugString(sLine.c_str());																			\
-}
-#endif
-#if !defined(CUSTOMLOGFILEINFO) && defined(CUSTOMLOGFUNCINFO)
-#define CUSTOMLOG(sFmt, ...) {																					\
-	CvString sMsg; CvString::format(sMsg, sFmt, __VA_ARGS__);													\
-	CvString sLine; CvString::format(sLine, "%s - %s", __FUNCTION__, sMsg.c_str());								\
-	LOGFILEMGR.GetLog(CUSTOMLOGDEBUG, FILogFile::kDontTimeStamp)->Msg(sLine.c_str());							\
-	sLine += '\n'; OutputDebugString(sLine.c_str());																			\
-}
-#endif
-#if !defined(CUSTOMLOGFILEINFO) && !defined(CUSTOMLOGFUNCINFO)
-#define CUSTOMLOG(sFmt, ...) {																					\
-	CvString sMsg; CvString::format(sMsg, sFmt, __VA_ARGS__);													\
-	LOGFILEMGR.GetLog(CUSTOMLOGDEBUG, FILogFile::kDontTimeStamp)->Msg(sMsg.c_str());							\
-	sMsg += '\n'; OutputDebugString(sMsg.c_str());																			\
-}
-#endif
+#if defined(CUSTOMLOGDEBUG) && defined(_MSC_VER)
+#define CUSTOMLOG(sFmt, ...) logAndODS(CUSTOMLOGDEBUG, CvString::format(CUSTOMLOGINFOFMT(sFmt), __VA_ARGS__))
+#elif defined(CUSTOMLOGDEBUG) && defined(__GNUC__)
+#define CUSTOMLOG(sFmt, ...) logAndODS(CUSTOMLOGDEBUG, CvString::format(CUSTOMLOGINFOFMT(sFmt), ## __VA_ARGS__))
 #else
 #define CUSTOMLOG(sFmt, ...) __noop
 #endif
 
 // Unified yields logger
-#if defined(UNIFIEDLOGDEBUG)
-#define UNIFIEDLOG(sFmt, ...) {																		\
-	CvString sMsg; CvString::format(sMsg, sFmt, __VA_ARGS__);										\
-	CvString sLine; CvString::format(sLine, "%s[%i] - %s", __FILE__, __LINE__, sMsg.c_str());	    \
-	LOGFILEMGR.GetLog(UNIFIEDLOGDEBUG, FILogFile::kDontTimeStamp)->Msg(sLine.c_str());			    \
-	sLine += '\n'; OutputDebugString(sLine.c_str());																						\
-}
+#if defined(UNIFIEDLOGDEBUG) && defined(_MSC_VER)
+#define UNIFIEDLOG(sFmt, ...) logAndODS(UNIFIEDLOGDEBUG, CvString::format("%s[%i] - " sFmt, __FILE__, __LINE__, __VA_ARGS__)
+#elif defined(UNIFIEDLOGDEBUG) && defined(__GNUC__)
+#define UNIFIEDLOG(sFmt, ...) logAndODS(UNIFIEDLOGDEBUG, CvString::format("%s[%i] - " sFmt, __FILE__, __LINE__, ## __VA_ARGS__)
 #else
 #define UNIFIEDLOG(sFmt, ...) __noop
 #endif
 
-#define LIVELOG(sFmt, ...) {																					\
-	CvString sMsg; CvString::format(sMsg, sFmt, __VA_ARGS__);													\
-	CvString sLine; CvString::format(sLine, "%s[%i]: %s - %s", __FILE__, __LINE__, __FUNCTION__, sMsg.c_str());	\
-	sLine += '\n'; OutputDebugString(sLine.c_str());																			\
-}
+#if defined(_MSC_VER)
+#define LIVELOG(sFmt, ...) logAndODS(NULL, "%s[%i]: %s - %s", __FILE__, __LINE__, __FUNCTION__, __VA_ARGS__)
+#elif defined(__GNUC__)
+#define LIVELOG(sFmt, ...) logAndODS(NULL, "%s[%i]: %s - %s", __FILE__, __LINE__, __FUNCTION__, ## __VA_ARGS__)
+#endif
 
 // GlobalDefines wrappers
 #define GD_INT_DECL(name)         int m_i##name

@@ -85,8 +85,6 @@ private:
 	void orderHotkeyInfo(int** ppiSortedIndex, T* pHotkeyInfos, int iLength);
 	void orderHotkeyInfo(int** ppiSortedIndex, int* pHotkeyIndex, int iLength);
 
-	void LogMsg(const char* format, ...) const;
-
 	//! Database members
 	Database::Connection&	m_kGameplayDatabase;
 
