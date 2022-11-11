@@ -492,7 +492,6 @@ public:
 
 	CvRandom& getJonRand();
 	int getJonRandNum(int iNum, const char* pszLog);
-	int getJonRandNumVA(int iNum, const char* pszLog, ...);
 	int getAsyncRandNum(int iNum, const char* pszLog);
 
 	/// Generates a pseudo-random 32-bit number using the game's current state and an extra seed.

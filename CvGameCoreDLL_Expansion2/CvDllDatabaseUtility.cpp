@@ -38,9 +38,16 @@
 
 #define GAMEPLAYXML_PATH "Gameplay\\XML\\"
 
+#if defined(_MSC_VER)
+#define LogMsg(format, ...) LOGFILEMGR.GetLog("xml.log", 0)->Msg(format, __VA_ARGS__);
+#elif defined(__GNUC__)
+#define LogMsg(format, ...) LOGFILEMGR.GetLog("xml.log", 0)->Msg(format, ## __VA_ARGS__);
+#else
+#error unsupported compiler
+#endif
 
 //Just a quick utility function to save from writing lots of verbose code.
-void InsertGameDefine(Database::Results& kInsertDefine, const char* szValue, int iValue)
+static void InsertGameDefine(Database::Results& kInsertDefine, const char* szValue, int iValue)
 {
 	kInsertDefine.Bind(1, szValue);
 	kInsertDefine.Bind(2, iValue);
@@ -1110,27 +1117,4 @@ void CvDllDatabaseUtility::orderHotkeyInfo(int** ppiSortedIndex, int* pHotkeyInd
 	{
 		piSortedIndex[iI] = viOrderPriority[iI].m_iIndex;
 	}
-}
-
-//------------------------------------------------------------------------------
-//
-// PRIVATE FUNCTIONS
-//
-// Function for logging messages to a log file.
-// Takes a format string and variable arguments similar to printf.
-// Writes formatted log messages to "xml.log".
-//
-void CvDllDatabaseUtility::LogMsg(const char* format, ...) const
-{
-	const size_t kBuffSize = 1024; // Buffer size for the formatted log message
-	static char buf[kBuffSize]; // Static buffer to hold the log message
-	const uint uiFlags = 0; // Default (0) is to not write to console and to time stamp
-
-	va_list vl; // Declare variable argument list
-	va_start(vl, format); // Initialize the variable argument list
-	vsprintf_s(buf, format, vl); // Format the log message into the buffer
-	va_end(vl); // Clean up the variable argument list
-
-	// Write the formatted message to the log file
-	LOGFILEMGR.GetLog("xml.log", uiFlags)->Msg(buf);
 }
