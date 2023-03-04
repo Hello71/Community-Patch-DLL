@@ -721,12 +721,12 @@ enum CLOSED_ENUM WrapDirection
 	*/
 };
 
-enum OPEN_ENUM ColorTypes
+enum OPEN_ENUM ColorTypes : int
 {
 	NO_COLOR = -1,
 };
 
-enum OPEN_ENUM PlayerColorTypes
+enum OPEN_ENUM PlayerColorTypes : int
 {
 	NO_PLAYERCOLOR = -1,
 };
@@ -1189,12 +1189,12 @@ enum CLOSED_ENUM ButtonPopupTypes
 //////////////////////////////////////////
 
 // you can stop freaking out now. It's ok.
-enum OPEN_ENUM ClimateTypes
+enum OPEN_ENUM ClimateTypes : int
 {
 	NO_CLIMATE = -1,
 };
 
-enum OPEN_ENUM SeaLevelTypes
+enum OPEN_ENUM SeaLevelTypes : int
 {
 	NO_SEALEVEL = -1,
 };
@@ -1262,12 +1262,12 @@ enum CLOSED_ENUM PlotTypes
 	NUM_PLOT_TYPES ENUM_META_VALUE
 };
 
-enum OPEN_ENUM FlavorTypes
+enum OPEN_ENUM FlavorTypes : int
 {
 	NO_FLAVOR = -1
 };
 
-enum OPEN_ENUM EmphasizeTypes
+enum OPEN_ENUM EmphasizeTypes : int
 {
 	NO_EMPHASIZE = -1,
 };
@@ -1405,12 +1405,12 @@ enum CLOSED_ENUM PlayerOptionTypes
 	PLAYEROPTION_QUICK_SELECTION_ADVANCE = 0xDFA69818
 };
 
-enum OPEN_ENUM VictoryTypes
+enum OPEN_ENUM VictoryTypes : int
 {
 	NO_VICTORY = -1,
 };
 
-enum OPEN_ENUM SmallAwardTypes
+enum OPEN_ENUM SmallAwardTypes : int
 {
 	NO_SMALLAWARD = -1,
 };
@@ -1448,12 +1448,12 @@ enum CLOSED_ENUM FeatureTypes
 	NUM_FEATURE_TYPES ENUM_META_VALUE
 };
 
-enum OPEN_ENUM ResourceTypes
+enum OPEN_ENUM ResourceTypes : int
 {
 	NO_RESOURCE = -1,
 };
 
-enum OPEN_ENUM ResourceClassTypes
+enum OPEN_ENUM ResourceClassTypes : int
 {
 	NO_RESOURCECLASS = -1,
 };
@@ -1467,7 +1467,7 @@ enum CLOSED_ENUM ResourceUsageTypes
 	NUM_RESOURCEUSAGE_TYPES ENUM_META_VALUE
 };
 
-enum OPEN_ENUM ImprovementTypes
+enum OPEN_ENUM ImprovementTypes : int
 {
 	NO_IMPROVEMENT = -1,
 };
@@ -1491,60 +1491,60 @@ enum CLOSED_ENUM RouteTypes
 	NUM_ROUTE_TYPES ENUM_META_VALUE
 };
 
-enum OPEN_ENUM GoodyTypes
+enum OPEN_ENUM GoodyTypes : int
 {
 	NO_GOODY = -1,
 };
 
-enum OPEN_ENUM BuildTypes
+enum OPEN_ENUM BuildTypes : int
 {
 	NO_BUILD = -1,
 };
 
-enum OPEN_ENUM HandicapTypes
+enum OPEN_ENUM HandicapTypes : int
 {
 	NO_HANDICAP = -1,
 };
 
-enum OPEN_ENUM GameSpeedTypes
+enum OPEN_ENUM GameSpeedTypes : int
 {
 	NO_GAMESPEED = -1,
 };
 
-enum OPEN_ENUM TurnTimerTypes
+enum OPEN_ENUM TurnTimerTypes : int
 {
 	NO_TURNTIMER = -1,
 };
 
 #if defined(MOD_EVENTS_DIPLO_MODIFIERS)
-enum OPEN_ENUM DiploModifierTypes
+enum OPEN_ENUM DiploModifierTypes : int
 {
 	NO_DIPLOMODIFIER = -1,
 };
 #endif
 
-enum OPEN_ENUM EraTypes
+enum OPEN_ENUM EraTypes : int
 {
 	NO_ERA = -1,
 };
 
-enum OPEN_ENUM CivilizationTypes
+enum OPEN_ENUM CivilizationTypes : int
 {
 	NO_CIVILIZATION = -1,
 };
 
-enum OPEN_ENUM MinorCivTypes
+enum OPEN_ENUM MinorCivTypes : int
 {
 	NO_MINORCIV = -1,
 };
 
-enum OPEN_ENUM LeaderHeadTypes
+enum OPEN_ENUM LeaderHeadTypes : int
 {
 	NO_LEADER = -1,
 };
 
 // Used for managing Art Differences based on nationality
-enum OPEN_ENUM ArtStyleTypes
+enum OPEN_ENUM ArtStyleTypes : int
 {
 	NO_ARTSTYLE = -1,
 };
@@ -1560,12 +1560,12 @@ enum CLOSED_ENUM CitySizeTypes
 	NUM_CITYSIZE_TYPES ENUM_META_VALUE
 };
 
-enum OPEN_ENUM FootstepAudioTypes
+enum OPEN_ENUM FootstepAudioTypes : int
 {
 	NO_FOOTSTEPAUDIO = -1,
 };
 
-enum OPEN_ENUM FootstepAudioTags
+enum OPEN_ENUM FootstepAudioTags : int
 {
 	NO_FOOTSTEPAUDIO_TAG = -1,
 };
@@ -1578,79 +1578,79 @@ enum CLOSED_ENUM ChatTargetTypes
 	CHATTARGET_PLAYER = -4,
 };
 
-enum OPEN_ENUM TeamTypes
+enum OPEN_ENUM TeamTypes : int
 {
 	NO_TEAM = -1,
 };
 
-enum OPEN_ENUM PlayerTypes
+enum OPEN_ENUM PlayerTypes : int
 {
 	NO_PLAYER = -1,
 };
 
-enum OPEN_ENUM TraitTypes
+enum OPEN_ENUM TraitTypes : int
 {
 	NO_TRAIT = -1,
 };
 
-enum OPEN_ENUM ReligionTypes
+enum OPEN_ENUM ReligionTypes : int
 {
 	NO_RELIGION = -1,
 	RELIGION_PANTHEON = 0,
 };
 
 #if defined(MOD_BALANCE_CORE)
-enum OPEN_ENUM CorporationTypes
+enum OPEN_ENUM CorporationTypes : int
 {
 	NO_CORPORATION = -1,
 };
-enum OPEN_ENUM ContractTypes
+enum OPEN_ENUM ContractTypes : int
 {
 	NO_CONTRACT = -1,
 };
 #endif
 
-enum OPEN_ENUM BeliefTypes
+enum OPEN_ENUM BeliefTypes : int
 {
 	NO_BELIEF = -1,
 };
 
-enum OPEN_ENUM SpyPassiveBonusTypes
+enum OPEN_ENUM SpyPassiveBonusTypes : int
 {
 	NO_SPY_PASSIVE_BONUS = -1,
 };
 
-enum OPEN_ENUM SpyPassiveBonusDiplomatTypes
+enum OPEN_ENUM SpyPassiveBonusDiplomatTypes : int
 {
 	NO_SPY_PASSIVE_BONUS_DIPLOMAT = -1,
 };
 
-enum OPEN_ENUM LeagueTypes
+enum OPEN_ENUM LeagueTypes : int
 {
 	NO_LEAGUE = -1,
 };
 
-enum OPEN_ENUM LeagueSpecialSessionTypes
+enum OPEN_ENUM LeagueSpecialSessionTypes : int
 {
 	NO_LEAGUE_SPECIAL_SESSION = -1,
 };
 
-enum OPEN_ENUM LeagueNameTypes
+enum OPEN_ENUM LeagueNameTypes : int
 {
 	NO_LEAGUE_NAME = -1,
 };
 
-enum OPEN_ENUM LeagueProjectTypes
+enum OPEN_ENUM LeagueProjectTypes : int
 {
 	NO_LEAGUE_PROJECT = -1,
 };
 
-enum OPEN_ENUM LeagueProjectRewardTypes
+enum OPEN_ENUM LeagueProjectRewardTypes : int
 {
 	NO_LEAGUE_PROJECT_REWARD = -1,
 };
 
-enum OPEN_ENUM ResolutionTypes
+enum OPEN_ENUM ResolutionTypes : int
 {
 	NO_RESOLUTION = -1,
 };
@@ -1733,27 +1733,27 @@ enum CLOSED_ENUM CityTaskResult
 	TASK_QUEUED		= 2				// The task operation cannot be done immediately and is queued
 };
 
-enum OPEN_ENUM BuildingClassTypes
+enum OPEN_ENUM BuildingClassTypes : int
 {
 	NO_BUILDINGCLASS = -1,
 };
 
-enum OPEN_ENUM BuildingTypes
+enum OPEN_ENUM BuildingTypes : int
 {
 	NO_BUILDING = -1,
 };
 
-enum OPEN_ENUM ProjectTypes
+enum OPEN_ENUM ProjectTypes : int
 {
 	NO_PROJECT = -1,
 };
 
-enum OPEN_ENUM ProcessTypes
+enum OPEN_ENUM ProcessTypes : int
 {
 	NO_PROCESS = -1,
 };
 
-enum OPEN_ENUM VoteTypes
+enum OPEN_ENUM VoteTypes : int
 {
 	NO_VOTE = -1,
 };
@@ -1800,22 +1800,22 @@ enum CLOSED_ENUM WarTypes
 	WARTYPE_SEA,
 };
 
-enum OPEN_ENUM UnitClassTypes
+enum OPEN_ENUM UnitClassTypes : int
 {
 	NO_UNITCLASS = -1,
 };
 
-enum OPEN_ENUM UnitTypes
+enum OPEN_ENUM UnitTypes : int
 {
 	NO_UNIT = -1,
 };
 
-enum OPEN_ENUM SpecialUnitTypes
+enum OPEN_ENUM SpecialUnitTypes : int
 {
 	NO_SPECIALUNIT = -1,
 };
 
-enum OPEN_ENUM UnitCombatTypes
+enum OPEN_ENUM UnitCombatTypes : int
 {
 	NO_UNITCOMBAT = -1,
 };
@@ -1888,30 +1888,30 @@ enum CLOSED_ENUM UnitAITypes
 	NUM_UNITAI_TYPES ENUM_META_VALUE
 };
 
-enum OPEN_ENUM InvisibleTypes
+enum OPEN_ENUM InvisibleTypes : int
 {
 	NO_INVISIBLE = -1,
 };
 
-enum OPEN_ENUM VoteSourceTypes
+enum OPEN_ENUM VoteSourceTypes : int
 {
 	NO_VOTESOURCE = -1,
 };
 
 #if defined(MOD_BALANCE_CORE_EVENTS)
-enum OPEN_ENUM EventTypes
+enum OPEN_ENUM EventTypes : int
 {
 	NO_EVENT = -1,
 };
-enum OPEN_ENUM EventChoiceTypes
+enum OPEN_ENUM EventChoiceTypes : int
 {
 	NO_EVENT_CHOICE = -1,
 };
-enum OPEN_ENUM CityEventTypes
+enum OPEN_ENUM CityEventTypes : int
 {
 	NO_EVENT_CITY = -1,
 };
-enum OPEN_ENUM CityEventChoiceTypes
+enum OPEN_ENUM CityEventChoiceTypes : int
 {
 	NO_EVENT_CHOICE_CITY = -1,
 };
@@ -1962,7 +1962,7 @@ enum CLOSED_ENUM AutomateTypes
 };
 
 // any additions need to be reflected in GlobalTypes.xml
-enum OPEN_ENUM MissionTypes
+enum OPEN_ENUM MissionTypes : int
 {
 	NO_MISSION = -1,
 };
@@ -2055,27 +2055,27 @@ enum CLOSED_ENUM ControlTypes
 	NUM_CONTROL_TYPES ENUM_META_VALUE
 };
 
-enum OPEN_ENUM PromotionTypes
+enum OPEN_ENUM PromotionTypes : int
 {
 	NO_PROMOTION = -1,
 };
 
-enum OPEN_ENUM TechTypes
+enum OPEN_ENUM TechTypes : int
 {
 	NO_TECH = -1,
 };
 
-enum OPEN_ENUM SpecialistTypes
+enum OPEN_ENUM SpecialistTypes : int
 {
 	NO_SPECIALIST = -1,
 };
 
-enum OPEN_ENUM HurryTypes
+enum OPEN_ENUM HurryTypes : int
 {
 	NO_HURRY = -1,
 };
 
-enum OPEN_ENUM CultureLevelTypes
+enum OPEN_ENUM CultureLevelTypes : int
 {
 	NO_CULTURELEVEL = -1,
 };
@@ -2096,12 +2096,12 @@ enum CLOSED_ENUM CultureTypes
 	CULTURE_MAX ENUM_META_VALUE,
 };
 
-enum OPEN_ENUM PolicyTypes
+enum OPEN_ENUM PolicyTypes : int
 {
 	NO_POLICY = -1,
 };
 
-enum OPEN_ENUM PolicyBranchTypes
+enum OPEN_ENUM PolicyBranchTypes : int
 {
 	NO_POLICY_BRANCH_TYPE = -1,
 };
@@ -2115,7 +2115,7 @@ enum CLOSED_ENUM FogOfWarModeTypes
 	NUM_FOGOFWARMODE_TYPES ENUM_META_VALUE
 };
 
-enum OPEN_ENUM EntityEventTypes
+enum OPEN_ENUM EntityEventTypes : int
 {
 	ENTITY_EVENT_NONE = -1,			//!< Invalid event
 };
@@ -2181,12 +2181,12 @@ enum CLOSED_ENUM WonderCommandType
 	WONDER_REMOVED,
 };
 
-enum OPEN_ENUM CursorTypes
+enum OPEN_ENUM CursorTypes : int
 {
 	NO_CURSOR = -1,
 };
 
-enum OPEN_ENUM DiploCommentTypes
+enum OPEN_ENUM DiploCommentTypes : int
 {
 	NO_DIPLOCOMMENT = -1
 };
@@ -2585,37 +2585,37 @@ enum CLOSED_ENUM MultiunitFormationTypes
 	NUM_MULTIUNITFORMATIONS ENUM_META_VALUE
 };
 
-enum OPEN_ENUM MultiunitPositionTypes
+enum OPEN_ENUM MultiunitPositionTypes : int
 {
 	NO_MUPOSITION = -1,
 };
 
-enum OPEN_ENUM EconomicAIStrategyTypes
+enum OPEN_ENUM EconomicAIStrategyTypes : int
 {
 	NO_ECONOMICAISTRATEGY = -1,
 };
 
-enum OPEN_ENUM CitySpecializationTypes
+enum OPEN_ENUM CitySpecializationTypes : int
 {
 	NO_CITY_SPECIALIZATION = -1,
 };
 
-enum OPEN_ENUM MilitaryAIStrategyTypes
+enum OPEN_ENUM MilitaryAIStrategyTypes : int
 {
 	NO_MILITARYAISTRATEGY = -1,
 };
 
-enum OPEN_ENUM AIStrategyTypes
+enum OPEN_ENUM AIStrategyTypes : int
 {
 	NO_AISTRATEGY = -1,
 };
 
-enum OPEN_ENUM AIGrandStrategyTypes
+enum OPEN_ENUM AIGrandStrategyTypes : int
 {
 	NO_AIGRANDSTRATEGY = -1,
 };
 
-enum OPEN_ENUM AICityStrategyTypes
+enum OPEN_ENUM AICityStrategyTypes : int
 {
 	NO_AICITYSTRATEGY = -1,
 };
@@ -3571,22 +3571,22 @@ enum CLOSED_ENUM TradeConnectionType
 	NUM_TRADE_CONNECTION_TYPES ENUM_META_VALUE
 };
 
-enum OPEN_ENUM GreatWorkArtifactClass
+enum OPEN_ENUM GreatWorkArtifactClass : int
 {
 	NO_GREAT_WORK_ARTIFACT_CLASS = -1,
 };
 
-enum OPEN_ENUM GreatWorkType
+enum OPEN_ENUM GreatWorkType : int
 {
 	NO_GREAT_WORK = -1,
 };
 
-enum OPEN_ENUM GreatWorkClass
+enum OPEN_ENUM GreatWorkClass : int
 {
 	NO_GREAT_WORK_CLASS = -1,
 };
 
-enum OPEN_ENUM GreatWorkSlotType
+enum OPEN_ENUM GreatWorkSlotType : int
 {
 	NO_GREAT_WORK_SLOT = -1,
 };
@@ -3744,7 +3744,7 @@ enum CLOSED_ENUM HistoricEventTypes
 	NUM_HISTORIC_EVENT_TYPES ENUM_META_VALUE
 };
 
-enum OPEN_ENUM GreatPersonTypes
+enum OPEN_ENUM GreatPersonTypes : int
 {
 	NO_GREATPERSON = -1,
 };
