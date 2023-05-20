@@ -76,7 +76,7 @@ private:
 	GameMode m_eMode;
 	bool m_bStatReporting;
 
-	char m_szDebugString[512];
+	CvString m_szDebugString;
 
 	unsigned int m_uiRefCount;
 
