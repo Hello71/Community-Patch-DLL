@@ -10,6 +10,8 @@
 #include "CvDllNetInitInfo.h"
 #include "CvDllContext.h"
 
+#include <sstream>
+
 CvDllNetInitInfo::CvDllNetInitInfo() :
 	m_uiRefCount(1),
 	m_szLoadFileName(CvPreGame::loadFileName()),
@@ -42,7 +44,6 @@ CvDllNetInitInfo::CvDllNetInitInfo() :
 	m_eMode(CvPreGame::gameMode()),
 	m_aiKnownPlayersTable(CvPreGame::GetKnownPlayersTable())
 {
-	ZeroMemory(m_szDebugString, sizeof m_szDebugString);
 }
 //------------------------------------------------------------------------------
 CvDllNetInitInfo::~CvDllNetInitInfo()
@@ -103,40 +104,26 @@ void* CvDllNetInitInfo::operator new(size_t bytes)
 //------------------------------------------------------------------------------
 const char* CvDllNetInitInfo::GetDebugString()
 {
-	sprintf(m_szDebugString, "NetInitInfo : m_szLoadFileName=\"%s\", "\
-	        "m_szMapScriptName=\"%s\", "\
-	        "m_bWBMapNoPlayers=\"%s\", "\
-	        "m_eWorldSize=%d, "\
-	        "m_eClimate=%d "\
-	        "m_eSeaLevel=%d "\
-	        "m_eEra=%d "\
-	        "m_eCalendar=%d "\
-	        "m_iGameTurn=%d "\
-			"m_bGameStarted=%d "\
-	        "m_eGameSpeed=%d "\
-	        "m_eTurnTimer=%d "\
-	        "m_szGameName=\"%s\" "\
-	        "m_uiSyncRandSeed=%u "\
-	        "m_uiMapRandSeed=%u "\
-			"m_aiKnownPlayersTable.size()=%u"
-	        , CvPreGame::loadFileName().c_str()
-	        , CvPreGame::mapScriptName().c_str()
-	        , CvPreGame::mapNoPlayers() ? "true" : "false"
-	        , static_cast<int>(CvPreGame::worldSize())
-	        , static_cast<int>(CvPreGame::climate())
-	        , static_cast<int>(CvPreGame::seaLevel())
-	        , static_cast<int>(CvPreGame::era())
-	        , static_cast<int>(CvPreGame::calendar())
-	        , CvPreGame::gameTurn()
-			, static_cast<int>(CvPreGame::gameStarted())
-	        , static_cast<int>(CvPreGame::gameSpeed())
-	        , static_cast<int>(CvPreGame::turnTimer())
-	        , CvPreGame::gameName().c_str()
-	        , CvPreGame::syncRandomSeed()
-	        , CvPreGame::mapRandomSeed()
-			, CvPreGame::GetKnownPlayersTable().size()
-	       );
-	return m_szDebugString;
+	std::ostringstream ss;
+	ss << std::boolalpha << "NetInitInfo : ";
+	ss << "m_szLoadFileName=\"" << CvPreGame::loadFileName() << '"';
+	ss << ", m_szMapScriptName=\"" << CvPreGame::mapScriptName() << '"';
+	ss << ", m_bWBMapNoPlayers=\"" << CvPreGame::mapNoPlayers() << '"';
+	ss << ", m_eWorldSize=" << static_cast<int>(CvPreGame::worldSize());
+	ss << ", m_eClimate=" << static_cast<int>(CvPreGame::climate());
+	ss << ", m_eSeaLevel=" << static_cast<int>(CvPreGame::seaLevel());
+	ss << ", m_eEra=" << static_cast<int>(CvPreGame::era());
+	ss << ", m_eCalendar=" << static_cast<int>(CvPreGame::calendar());
+	ss << ", m_iGameTurn=" << CvPreGame::gameTurn();
+	ss << ", m_bGameStarted=" << static_cast<int>(CvPreGame::gameStarted());
+	ss << ", m_eGameSpeed=" << static_cast<int>(CvPreGame::gameSpeed());
+	ss << ", m_eTurnTimer=" << static_cast<int>(CvPreGame::turnTimer());
+	ss << ", m_szGameName=" << CvPreGame::gameName().c_str();
+	ss << ", m_uiSyncRandSeed=" << CvPreGame::syncRandomSeed();
+	ss << ", m_uiMapRandSeed=" << CvPreGame::mapRandomSeed();
+        ss << ", m_aiKnownPlayersTable.size()=" << CvPreGame::GetKnownPlayersTable().size();
+	m_szDebugString = ss.str();
+	return m_szDebugString.c_str();
 }
 //------------------------------------------------------------------------------
 bool CvDllNetInitInfo::Read(FDataStream& kStream)
