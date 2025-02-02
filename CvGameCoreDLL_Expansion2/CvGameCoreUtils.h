@@ -500,8 +500,10 @@ public:
 	friend FDataStream& operator>>(FDataStream& loadFrom, fraction& writeTo);
 };
 
+#ifdef WIN32
 //------------------------------------------------------------------------------
 void PrintMemoryInfo(const char* hint);
+#endif
 
 #endif
 

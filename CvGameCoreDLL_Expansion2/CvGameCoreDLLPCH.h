@@ -137,7 +137,6 @@
 #include <vector>
 #include <list>
 #include <math.h>
-#include <tchar.h>
 #include <assert.h>
 #include <map>
 #include <limits>
