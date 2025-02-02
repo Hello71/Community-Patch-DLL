@@ -2748,24 +2748,24 @@ vector<OptionWithScore<pair<CvUnit*, BuilderDirective>>> CvHomelandAI::GetWeight
 
 		if (eDirective.m_eBuild == NO_BUILD)
 		{
-			aWeightedDirectives.push_back(OptionWithScore<pair<CvUnit*, BuilderDirective>>(make_pair<CvUnit*, BuilderDirective>(NULL, eDirective), INT_MIN));
+			aWeightedDirectives.push_back(OptionWithScore<pair<CvUnit*, BuilderDirective>>(make_pair(static_cast<CvUnit*>(NULL), eDirective), INT_MIN));
 			continue;
 		}
 
 		// If the score is lower than the best weighted score we have found, it will never be better than the best weighted score
 		if (GetDirectiveWeight(eDirective, 0, 0) <= iBestWeightedScore)
 		{
-			aWeightedDirectives.push_back(OptionWithScore<pair<CvUnit*, BuilderDirective>>(make_pair<CvUnit*, BuilderDirective>(NULL, eDirective), INT_MIN));
+			aWeightedDirectives.push_back(OptionWithScore<pair<CvUnit*, BuilderDirective>>(make_pair(static_cast<CvUnit*>(NULL), eDirective), INT_MIN));
 			continue;
 		}
 
 		if (!IsBestDirectiveForPlot(eDirective, m_pPlayer, aDirectives))
 		{
-			aWeightedDirectives.push_back(OptionWithScore<pair<CvUnit*, BuilderDirective>>(make_pair<CvUnit*, BuilderDirective>(NULL, eDirective), INT_MIN));
+			aWeightedDirectives.push_back(OptionWithScore<pair<CvUnit*, BuilderDirective>>(make_pair(static_cast<CvUnit*>(NULL), eDirective), INT_MIN));
 			continue;
 		}
 
-		list<OptionWithScore<CvUnit*>> sortedWorkers;
+		vector<OptionWithScore<CvUnit*>> sortedWorkers;
 
 		// First sort by plot distance between worker and directive, it's a good heuristic and reduces the number of needed calls to
 		// the pathfinder (and the max distance sent to the pathfinding algorithm when it is needed).
@@ -2807,7 +2807,7 @@ vector<OptionWithScore<pair<CvUnit*, BuilderDirective>>> CvHomelandAI::GetWeight
 		CvBuildInfo* pkBuildInfo = GC.getBuildInfo(eDirective.m_eBuild);
 
 		// Loop over the sorted workers to find the one closest to the directive plot (including build time)
-		for (std::list<OptionWithScore<CvUnit*>>::iterator builderIterator = sortedWorkers.begin(); builderIterator != sortedWorkers.end() && iBestBuilderTotalTurns > 0; ++builderIterator)
+		for (std::vector<OptionWithScore<CvUnit*>>::iterator builderIterator = sortedWorkers.begin(); builderIterator != sortedWorkers.end() && iBestBuilderTotalTurns > 0; ++builderIterator)
 		{
 			CvUnit* pUnit = (*builderIterator).option;
 
@@ -2876,7 +2876,7 @@ vector<OptionWithScore<pair<CvUnit*, BuilderDirective>>> CvHomelandAI::GetWeight
 		if (iBestBuilderWeightedScore > iBestWeightedScore)
 			iBestWeightedScore = iBestBuilderWeightedScore;
 
-		aWeightedDirectives.push_back(OptionWithScore<pair<CvUnit*, BuilderDirective>>(make_pair<CvUnit*, BuilderDirective>(pBestBuilder, eDirective), iBestBuilderWeightedScore));
+		aWeightedDirectives.push_back(OptionWithScore<pair<CvUnit*, BuilderDirective>>(make_pair(pBestBuilder, eDirective), iBestBuilderWeightedScore));
 	}
 
 	std::stable_sort(aWeightedDirectives.begin(), aWeightedDirectives.end());
