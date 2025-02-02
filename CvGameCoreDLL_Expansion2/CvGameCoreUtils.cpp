@@ -20,7 +20,6 @@
 #include "CvInfos.h"
 #include "CvImprovementClasses.h"
 #include "CvGlobals.h"
-#include "psapi.h"
 #include <time.h> // CvAssertDlg
 
 #include "ICvDLLUserInterface.h"
@@ -31,6 +30,7 @@
 // CvAssertDlg and CvPreconditionDlg implementation
 #ifdef CVASSERT_DEBUG_ENABLE
 #ifdef WIN32
+#include "psapi.h"
 
 // MessageBox constants
 #define MB_OK               0x00000000L
@@ -267,6 +267,25 @@ bool CvAssertDlg(const char* expr, const char* szFile, unsigned int uiLine, bool
 		return false;
 	}
 #endif // VPRELEASE_ERRORMSG
+}
+
+//------------------------------------------------------------------------------
+void PrintMemoryInfo(const char* hint)
+{
+	DWORD processID = GetCurrentProcessId();
+
+	// Print information about the memory usage of the process.
+	HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION |
+		PROCESS_VM_READ,
+		FALSE, processID);
+	if (NULL == hProcess)
+		return;
+
+	PROCESS_MEMORY_COUNTERS pmc;
+	if (GetProcessMemoryInfo(hProcess, &pmc, sizeof(pmc)))
+		CUSTOMLOG("%s:\tWorkingSetSize\t%08u kB\tPrivateUsage\t%08u kB", hint, pmc.WorkingSetSize/1024, pmc.PagefileUsage/1024);
+
+	CloseHandle(hProcess);
 }
 
 #endif // WIN32
@@ -1941,22 +1960,3 @@ FDataStream& operator>>(FDataStream& loadFrom, fraction& writeTo)
 	return loadFrom;
 }
 #endif
-
-//------------------------------------------------------------------------------
-void PrintMemoryInfo(const char* hint)
-{
-	DWORD processID = GetCurrentProcessId();
-
-	// Print information about the memory usage of the process.
-	HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION |
-		PROCESS_VM_READ,
-		FALSE, processID);
-	if (NULL == hProcess)
-		return;
-
-	PROCESS_MEMORY_COUNTERS pmc;
-	if (GetProcessMemoryInfo(hProcess, &pmc, sizeof(pmc)))
-		CUSTOMLOG("%s:\tWorkingSetSize\t%08u kB\tPrivateUsage\t%08u kB", hint, pmc.WorkingSetSize/1024, pmc.PagefileUsage/1024);
-
-	CloseHandle(hProcess);
-}

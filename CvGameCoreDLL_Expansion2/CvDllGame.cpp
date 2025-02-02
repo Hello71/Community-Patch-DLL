@@ -615,6 +615,7 @@ void CvDllGame::InitExeStuff()
 	// todo: code caves
 	CvBinType binType;
 
+#ifdef WIN32
 	char moduleName[1024];
 	if (!GetModuleFileName(NULL, moduleName, sizeof(moduleName)))
 	{
@@ -644,6 +645,7 @@ void CvDllGame::InitExeStuff()
 		int* s_wantForceResync = reinterpret_cast<int*>(0x02dd2f68 + totalOffset);
 		m_pGame->SetExeWantForceResyncPointer(s_wantForceResync);
 	}
+#endif
 
 	/*{
 	    // the very basic example of how to fill something with NOPs

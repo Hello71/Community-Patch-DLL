@@ -44,10 +44,8 @@
 #include "CvDllUnit.h"
 
 #if defined(MOD_DEBUG_MINIDUMP)
-#ifdef WIN32
 #include "../commit_id.inc"
 #include <dbghelp.h>
-#endif // WIN32
 #endif // defined(MOD_DEBUG_MINIDUMP)
 
 // must be included after all other headers
@@ -2437,8 +2435,7 @@ PlayerTypes GetCurrentPlayer()
 	return NO_PLAYER;
 }
 
-#if defined(MOD_DEBUG_MINIDUMP)
-#ifdef WIN32
+#ifdef MOD_DEBUG_MINIDUMP
 /************************************************************************************************/
 /* MINIDUMP_MOD                           04/10/11                                terkhen       */
 /* See http://www.debuginfo.com/articles/effminidumps.html                                      */
@@ -2583,14 +2580,13 @@ LONG WINAPI CustomFilter(EXCEPTION_POINTERS* ExceptionInfo)
 //
 void CvGlobals::init()
 {
-#if defined(MOD_DEBUG_MINIDUMP)
+#ifdef MOD_DEBUG_MINIDUMP
 	SetUnhandledExceptionFilter(CustomFilter);
 #ifdef VPDEBUG
 	OutputDebugString(_T("Debug MiniDump handler installed\n"));
 #else
 	OutputDebugString(_T("Release MiniDump handler installed\n"));
 #endif
-#endif // WIN32
 #endif // defined(MOD_DEBUG_MINIDUMP)
 
 	//
