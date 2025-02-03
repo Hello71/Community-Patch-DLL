@@ -3213,7 +3213,7 @@ bool CvTacticalAI::ExecuteSpotterMove(const vector<CvUnit*>& vUnits, CvPlot* pTa
 				if (pUnit && pUnit->canAirSweepAt(pAdjacentPlot->getX(), pAdjacentPlot->getY()))
 				{
 					pUnit->PushMission(CvTypes::getMISSION_AIR_SWEEP(), pAdjacentPlot->getX(), pAdjacentPlot->getY());
-					CUSTOMLOG("using air sweep for recon!")
+					CUSTOMLOG("using air sweep for recon!");
 					if (pUnit->isOutOfAttacks())
 						UnitProcessed(m_CurrentAirSweepUnits[iI].GetID());
 					return true;
