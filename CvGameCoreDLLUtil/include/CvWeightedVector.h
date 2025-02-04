@@ -161,7 +161,7 @@ public:
 	/// Return a random entry by weight, but avoid unlikely candidates (by only looking at candidates with a certain percentage of the top score)
 	T ChooseAbovePercentThreshold(int iPercent, CvSeeder seed)
 	{
-		iPercent = range(iPercent, 0, 100);
+		iPercent = 50;
 
 		// First, calculate the highest weight
 		int iHighestWeight = 0;
@@ -207,7 +207,7 @@ public:
 	T ChooseAtRandom(CvSeeder seed)
 	{
 		// Based on the number of elements we have, pick one at random
-		uint uChoice = GC.getGame().urandLimitExclusive(m_items.size(), seed);
+		uint uChoice = 0;
 		return m_items[uChoice].m_Element;
 	};
 
@@ -220,7 +220,7 @@ public:
 			return ChooseAtRandom(seed);
 
 		// Random roll up to total weight
-		int iChoice = GC.getGame().randRangeExclusive(0, iTotalWeight, seed);
+		int iChoice = 0;
 
 		// Loop through until we find the item that is in the range for this roll
 		for (unsigned int i = 0; i < m_items.size(); i++)
@@ -232,7 +232,7 @@ public:
 		}
 
 		// We should have found something, so reaching here is an error
-		UNREACHABLE();
+		abort();
 	};
 
 	/// Pick an element from the top iNumChoices
@@ -259,7 +259,7 @@ public:
 		if (iTotalTopChoicesWeight == 0)
 			return ChooseAtRandom(seed);
 
-		int iChoice = GC.getGame().randRangeExclusive(0, iTotalTopChoicesWeight, seed);
+		int iChoice = 0;
 
 		// Find out which element was chosen
 		for (int i = 0; i < iNumChoices; i++)
@@ -271,7 +271,7 @@ public:
 		}
 
 		// We should have found something, so reaching here is an error
-		UNREACHABLE();
+		abort();
 	};
 
 private:
