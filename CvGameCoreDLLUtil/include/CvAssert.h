@@ -33,6 +33,19 @@ bool CvAssertDlg(const char* expr, const char* szFile, unsigned int uiLine, bool
 
 // shows a message dialog if expr is false and CVASSERT_ENABLE is defined.
 // Unlike PRECONDITION, a failed assertion does not cause the game to crash
+#ifdef __GNUC__
+#define ASSERT(expr, ...)																\
+{																							\
+	static bool bIgnoreAlways = false;														\
+	if( !bIgnoreAlways && !(expr) )								                			\
+	{																						\
+		CvString str;																		\
+		CvString::format(str, ## __VA_ARGS__);													\
+		if(CvAssertDlg(#expr, __FILE__, __LINE__, bIgnoreAlways, str.c_str()))				\
+			{ CVASSERT_BREAKPOINT; }														\
+	}																						\
+}
+#else
 #define ASSERT(expr, ...)																\
 {																							\
 	static bool bIgnoreAlways = false;														\
@@ -44,6 +57,7 @@ bool CvAssertDlg(const char* expr, const char* szFile, unsigned int uiLine, bool
 			{ CVASSERT_BREAKPOINT; }														\
 	}																						\
 }
+#endif
 
 // An assert that only happens in the when CVASSERT_ENABLE is true AND it is a debug build
 #ifdef _DEBUG
