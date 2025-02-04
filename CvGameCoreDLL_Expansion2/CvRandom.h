@@ -63,13 +63,6 @@ struct NODISCARD CvSeeder {
         return mixRawAssign(hash32(static_cast<uint>(otherValue)));
     }
 
-    // `mixAssign` is specialized for mixing two seeders.
-    // This is done to avoid rehashing the value within the seeder because it is presumably already hashed.
-    template<> inline CvSeeder& mixAssign<CvSeeder>(CvSeeder otherSeed)
-    {
-        return mixRawAssign(otherSeed.value);
-    }
-
     template<typename T> inline CvSeeder mixRaw(T otherValue) const
     {
         CvSeeder newSeed = *this;
@@ -89,6 +82,13 @@ struct NODISCARD CvSeeder {
         return value;
     }
 };
+
+// `mixAssign` is specialized for mixing two seeders.
+// This is done to avoid rehashing the value within the seeder because it is presumably already hashed.
+template<> inline CvSeeder& CvSeeder::mixAssign<CvSeeder>(CvSeeder otherSeed)
+{
+    return mixRawAssign(otherSeed.value);
+}
 
 class CvRandom
 {
