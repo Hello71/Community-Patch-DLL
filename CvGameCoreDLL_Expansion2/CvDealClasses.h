@@ -11,7 +11,8 @@
 #define CV_DEAL_CLASSES_H
 
 #include "CvDiplomacyAIEnums.h"
-#include "CvWeightedVector.h"
+
+template<class T> class CvWeightedVector;
 
 enum CLOSED_ENUM TradeableItems
 {
