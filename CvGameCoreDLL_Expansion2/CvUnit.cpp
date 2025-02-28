@@ -23962,7 +23962,8 @@ void CvUnit::DoConvertEnemyUnitToBarbarian(const CvPlot* pPlot)
 							}
 						}
 					}
-				}/*
+				}
+#if 0
 				// Is this unit running into a unit that might convert it into a barbarian??
 				if(IsCombatUnit() && !isBarbarian() && !pPlot->isFriendlyCity(*this))
 				{
@@ -23982,7 +23983,7 @@ void CvUnit::DoConvertEnemyUnitToBarbarian(const CvPlot* pPlot)
 									{
 
 										CvPlayer* pBarbPlayer = &GET_PLAYER(BARBARIAN_PLAYER);
-										pConvertUnit = pBarbPlayer->initUnit(getUnitType(), getX(), getY(), AI_getUnitAIType(), NO_DIRECTION, true /*bNoMove, false);
+										pConvertUnit = pBarbPlayer->initUnit(getUnitType(), getX(), getY(), AI_getUnitAIType(), NO_DIRECTION, true /*bNoMove*/, false);
 										pConvertUnit->convert(this, false);
 										pConvertUnit->setupGraphical();
 										pConvertUnit->setDamage(iExistingDamage, BARBARIAN_PLAYER);
@@ -24000,7 +24001,7 @@ void CvUnit::DoConvertEnemyUnitToBarbarian(const CvPlot* pPlot)
 							}
 						}
 					}
-				}*/
+#endif
 			}
 		}
 	}

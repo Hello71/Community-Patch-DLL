@@ -31766,7 +31766,7 @@ void CvCity::doUnitCompletionYields(CvUnit* pUnit, UnitCreationReason eReason)
 		if (iYieldQuantityOnCompletion > 0)
 		{
 			// Look up instant yield type based on unit creation reason
-			InstantYieldType eIYieldType = INSTANT_YIELD_TYPE_INSTANT;
+			InstantYieldType eIYieldType;
 			switch (eReason) {
 			case REASON_TRAIN:
 				eIYieldType = INSTANT_YIELD_TYPE_U_PROD;
@@ -31777,6 +31777,8 @@ void CvCity::doUnitCompletionYields(CvUnit* pUnit, UnitCreationReason eReason)
 			case REASON_FAITH_BUY:
 				eIYieldType = INSTANT_YIELD_TYPE_FAITH_PURCHASE;
 				break;
+			default:
+				eIYieldType = INSTANT_YIELD_TYPE_INSTANT;
 			}
 
 			GET_PLAYER(getOwner()).doInstantYield(eIYieldType, false, NO_GREATPERSON, NO_BUILDING, iYieldQuantityOnCompletion, 
