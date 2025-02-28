@@ -7,8 +7,9 @@
 	------------------------------------------------------------------------------------------------------- */
 #pragma once
 
-#include "CvWeightedVector.h"
 #include "CvBeliefClasses.h"
+
+template<class T> class CvWeightedVector;
 
 #ifndef CIV5_RELIGION_CLASSES_H
 #define CIV5_RELIGION_CLASSES_H
