@@ -122,9 +122,11 @@ typedef const wchar_t * LPCWSTR;
 
 #ifdef _UNICODE
 typedef wchar_t TCHAR;
+typedef const wchar_t *LPCTSTR;
 #define _T(x) L ## x
 #else
 typedef char TCHAR;
+typedef const char *LPCTSTR;
 #define _T(x) x
 #define OutputDebugString OutputDebugStringA
 #endif
