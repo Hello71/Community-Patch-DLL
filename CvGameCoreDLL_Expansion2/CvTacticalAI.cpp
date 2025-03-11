@@ -1879,7 +1879,7 @@ void CvTacticalAI::PlotHedgehogMoves(CvTacticalDominanceZone* pZone)
 /// Try to push back the invader
 void CvTacticalAI::PlotCounterattackMoves(CvTacticalDominanceZone* pZone)
 {
-	pZone; //unused but can be inspected
+	(void)pZone; //unused but can be inspected
 	ClearCurrentMoveUnits(AI_TACTICAL_COUNTERATTACK);
 
 	// Attack priority unit targets
