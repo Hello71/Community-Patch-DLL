@@ -305,7 +305,6 @@ template<typename TData>
 void ReadDataArray(FDataStream& kStream, TData* paArray, int iArraySize)
 {
 	uint uiNumEntries;
-	FStringFixedBuffer(sTemp, 256);
 	int iType;
 
 	kStream >> uiNumEntries;
