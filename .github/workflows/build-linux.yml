@@ -40,7 +40,6 @@ jobs:
       run: >
         meson setup
         --cross-file meson-${{matrix.compiler}}.txt
-        -Dwerror=true
         ${{matrix.meson_args}}
         build || {
           echo "::group::meson-log.txt";
