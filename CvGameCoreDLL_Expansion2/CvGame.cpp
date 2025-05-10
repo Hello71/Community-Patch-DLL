@@ -11172,7 +11172,7 @@ void CvGame::writeSaveGameDB(FDataStream& kStream) const
 	}
 	else
 	{
-		if (GetFileAttributesW(savePath) != INVALID_FILE_ATTRIBUTES)
+		if (GetLastError() != ERROR_FILE_NOT_FOUND)
 		{
 			ASSERT_DEBUG(false, "Saved game database exists, but could not open it!");
 		}

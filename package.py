@@ -28,7 +28,11 @@ def gettarinfo(arcname: str, fileobj: IO) -> tarfile.TarInfo:
     tar_info = tarfile.TarInfo()
     tar_info.name = arcname
     tar_info.size = st.st_size
-    tar_info.mtime = st.st_mtime
+    timestamp = os.environ.get('SOURCE_DATE_EPOCH')
+    if timestamp is not None:
+        tar_info.mtime = int(timestamp)
+    else:
+        tar_info.mtime = st.st_mtime
     tar_info.mode = st.st_mode
     tar_info.type = tarfile.REGTYPE
     tar_info.uid = tar_info.gid = 0
